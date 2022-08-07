@@ -18,7 +18,6 @@ using std::boolalpha;
 using std::cout;
 using std::deque;
 using std::distance;
-using '\n';
 using std::for_each;
 using std::find_if;
 using std::future;
@@ -114,7 +113,7 @@ future<vector<future<pair<bool, int>>>> getFutures(ActiveObject& activeObject,
 
 int main(){
     
-    cout << boolalpha << endl;
+    cout << boolalpha << '\n';
     
      ActiveObject activeObject;
         
@@ -159,16 +158,16 @@ int main(){
     auto prIt = find_if(futResults.begin(), futResults.end(), 
                         [](pair<bool, int> pa){ return pa.first == true; });
  
-    cout << "Number primes: " << distance(prIt, futResults.end()) << endl;
-    cout << "Primes:" << endl;
+    cout << "Number primes: " << distance(prIt, futResults.end()) << '\n';
+    cout << "Primes:" << '\n';
     for_each(prIt, futResults.end(), [](auto p){ cout << p.second << " ";} );
     
     cout << "\n\n";
     
-    cout << "Number no primes: " << distance(futResults.begin(), prIt) << endl;
-    cout << "No primes:" << endl;
+    cout << "Number no primes: " << distance(futResults.begin(), prIt) << '\n';
+    cout << "No primes:" << '\n';
     for_each(futResults.begin(), prIt, [](auto p){ cout << p.second << " ";} );
     
-    cout << endl;
+    cout << '\n';
     
 }

@@ -36,22 +36,7 @@ private:
 
 };
 
-enum Colour {
-    red,
-    blue,
-    green
-};
-
-enum Colour2 {
-    red,
-    blue,
-    green
-};
-
-
 int main(){
-    
-  std::cout << red << '\n';
 
   std::cout << '\n';
 
