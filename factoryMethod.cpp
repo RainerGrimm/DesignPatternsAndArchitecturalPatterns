@@ -2,48 +2,44 @@
 
 // Product
 class Window{ 
-  public: 
+ public: 
     virtual Window* clone() = 0; 
     virtual ~Window() {};
 };
 
 // Concrete Products 
 class DefaultWindow: public Window { 
-  public:
-    DefaultWindow() {
-      std::cout << "DefaultWindow" << '\n';
-    }
-  private:
     DefaultWindow* clone() { 
-      return new DefaultWindow();
+        std::cout << "DefaultWindow" << '\n';
+        return new DefaultWindow();
     } 
 };
 
 class FancyWindow: public Window { 
-  public:
-    FancyWindow() {
-	  std::cout << "FancyWindow" << '\n';
-	}
-  private:
     FancyWindow* clone() { 
-      return new FancyWindow();
+        std::cout << "FancyWindow" << '\n';
+        return new FancyWindow();
     } 
 };
 
 // Concrete Creator or Client
 Window* getNewWindow(Window& oldWindow) { 
-  return oldWindow.clone();
+    return oldWindow.clone();
 }
   
-int main(){
+int main() {
 
-  DefaultWindow defaultWindow;
-  FancyWindow fancyWindow;
+    std::cout << '\n';
+
+    DefaultWindow defaultWindow;
+    FancyWindow fancyWindow;
   
-  const Window* defaultWindow1 = getNewWindow(defaultWindow);
-  const Window* fancyWindow1 = getNewWindow(fancyWindow);
+    const Window* defaultWindow1 = getNewWindow(defaultWindow);
+    const Window* fancyWindow1 = getNewWindow(fancyWindow);
   
-  delete defaultWindow1;
-  delete fancyWindow1;
+    delete defaultWindow1;
+    delete fancyWindow1;
+
+    std::cout << '\n';
   
 }
