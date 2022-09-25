@@ -1,8 +1,10 @@
+// bridget.cpp
+
 #include <iostream>
 
-class Implementor {
+class Implementor {                           // (1)
 public:
-    virtual void implementation() = 0;
+    virtual void implementation() const = 0;
 
     virtual ~Implementor() = default;
 };
@@ -11,7 +13,7 @@ class ImplementorA: public Implementor {
 public:
     ImplementorA() = default;
  
-    void implementation() {
+    void implementation() const {
         std::cout << "ImplementatorA::implementation" << '\n';
     }
 };
@@ -20,14 +22,14 @@ class ImplementorB: public Implementor {
 public:
     ImplementorB() = default;
 
-    void implementation() {
+    void implementation() const {
         std::cout << "ImplementatorB::implementation" << '\n';
     }
 };
 
-class Abstraction {
+class Abstraction {                           // (2)      
 public:
-    virtual void function()= 0;
+    virtual void function() const = 0;
     virtual ~Abstraction() = default;
 };
 
@@ -37,13 +39,8 @@ public:
 		implementor(impl) {
     }
  
-    void function() {
-        std::cout << "RefinedAbstradtion::function\n";
-        implementor.implementation();
-    }
-
-    void refinedFunction() {
-        std::cout << "RefinedAbstradtion::function\n";
+    void function() const {
+        std::cout << "RefinedAbstraction::function\n";
         implementor.implementation();
     }
 private:
@@ -52,21 +49,23 @@ private:
  
 int main() {
 
+    std::cout << '\n';
+
     ImplementorA implementorA;
     ImplementorB implementorB;
  
-    RefinedAbstraction refinedAbstraction1(implementorA);
-    RefinedAbstraction refinedAbstraction2(implementorB);
+    RefinedAbstraction refinedAbstraction1(implementorA);  // (3)
+    RefinedAbstraction refinedAbstraction2(implementorB);  // (4)
 
     Abstraction *abstraction1 = &refinedAbstraction1;
     Abstraction *abstraction2 = &refinedAbstraction2;
 
     abstraction1->function();
-    refinedAbstraction1.refinedFunction();
 
     std::cout << '\n';
 
     abstraction2->function();
-    refinedAbstraction2.refinedFunction();
+
+    std::cout << '\n';
 
 }
