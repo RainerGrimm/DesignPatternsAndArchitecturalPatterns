@@ -1,15 +1,17 @@
+// decoratorFrame.cpp (based on https://en.wikipedia.org/wiki/Decorator_pattern)
+
 #include <iostream>
 #include <string>
 
 struct Shape{
-  virtual std::string str() = 0;
+  virtual std::string str() const = 0;
 };
 
 class Circle : public Shape{
   float radius = 10.0f;
   
 public:
-  std::string str() override{
+  std::string str() const override{
     return std::string("A circle of radius ") + std::to_string(radius);
   }
 };
@@ -19,7 +21,7 @@ class ColoredShape : public Shape{
   Shape& shape;
 public:
   ColoredShape(std::string c, Shape& s): color{c}, shape{s} {}
-  std::string str() override{
+  std::string str() const override{
     return shape.str() + std::string(" which is coloured ") + color;
   }
 };
@@ -28,7 +30,7 @@ class FramedShape : public Shape{
   Shape& shape;
 public:
   FramedShape(Shape& s): shape{s} {}
-  std::string str() override{
+  std::string str() const override{
     return shape.str() + std::string(" and has a frame");
   }
 };
