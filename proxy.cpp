@@ -1,30 +1,29 @@
 #include <iostream>
 #include <memory>
-#include <utility>
 
-struct MyInt{
-
-  MyInt(int i):i_(i){}
-
-  ~MyInt(){
-    std::cout << "Good bye from " << i_ << '\n';
-  }
-
-  int i_;
-
+class MyInt{
+ public:
+    MyInt(int i):i_(i){}
+    int getValue() const {
+        return i_;
+    }
+ private:
+    int i_;
 };
-
 
 int main(){
 
-  std::cout << '\n';
+    std::cout << '\n';
 
-  std::unique_ptr<MyInt> uniquePtr1{ new MyInt(1998) };
+    MyInt* myInt = new MyInt(1998);
+    std::cout << "myInt->getValue(): " << myInt->getValue() << '\n';
 
-  {
-    std::unique_ptr<MyInt> localPtr{ new MyInt(2003) };
-  }
+    std::unique_ptr<MyInt> uniquePtr{new MyInt(1998)};
+    std::cout << "uniquePtr->getValue(): " << uniquePtr->getValue() << '\n';
 
-  std::cout << '\n';
+    std::shared_ptr<MyInt> sharedPtr{new MyInt(1998)};
+    std::cout << "sharedPtr->getValue(): " << sharedPtr->getValue() << '\n';
+
+    std::cout << '\n';
 
 }
