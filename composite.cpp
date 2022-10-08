@@ -1,48 +1,77 @@
 #include <iostream>
-#include <set>
+#include <vector>
 
-class Grafik {
-public:
+class Graphic {
+ public:
     virtual void print() const = 0;
-    virtual ~Grafik() {} 
+    virtual ~Graphic() {} 
 };
 
-class GrafikKompositum : public Grafik {
-    std::set<Grafik const*> children;
-    typedef std::set<Grafik const*>::const_iterator grIter;
-public:
-    void print() const {
-        for (grIter it = children.begin(); it != children.end(); it++) (*it)->print();
+class GraphicComposite : public Graphic {
+    std::vector<const Graphic*> children;
+    const std::string& name;
+ public:
+    explicit GraphicComposite(const std::string& n): name(n){}
+    void print() const override {
+        std::cout << name << " ";
+        for (auto c: children) c->print();
     }
 
-    void add(Grafik const* component) {
-        children.insert(component);
+    void add(const Graphic* component) {
+        children.push_back(component);
     }
 
-    void remove(Grafik const* component) {
-        children.erase(component);
+    void remove(const Graphic* component) {
+        std::erase(children, component);
     }
 };
 
-class Ellipse: public Grafik {
-public:
-    void print() const {
-        std::cout << "Ellipse\n";
+class Ellipse: public Graphic {
+ private:
+    const std::string& name;
+ public:
+    explicit Ellipse(const std::string& n): name (n) {}
+    void print() const override {
+        std::cout << name << " ";
     }
 };
 
 int main(){
-    Ellipse ellipse1, ellipse2, ellipse3, ellipse4;
 
-    GrafikKompositum grafik1, grafik2, grafikGesamt;
+    std::cout << '\n';
 
-    grafik1.add(&ellipse1);
-    grafik1.add(&ellipse2);
-    grafik1.add(&ellipse3);
-    grafik2.add(&ellipse4);
+    Ellipse ellipse1("ellipse1");
+    Ellipse ellipse2("ellipse2");
+    Ellipse ellipse3("ellipse3");
+    Ellipse ellipse4("ellipse4");
 
-    grafikGesamt.add(&grafik1);
-    grafikGesamt.add(&grafik2);
+    GraphicComposite graphic1("graphic1");
+    GraphicComposite graphic2("graphic2");
+    GraphicComposite graphic("graphic");
 
-    grafikGesamt.print();
+    graphic1.add(&ellipse1);
+    graphic1.add(&ellipse2);
+    graphic1.add(&ellipse3);
+
+    graphic2.add(&ellipse4);
+
+    graphic.add(&graphic1);
+    graphic.add(&graphic2);
+
+    graphic1.print();
+    std::cout << '\n';
+
+    graphic2.print();
+    std::cout << '\n';
+
+    graphic.print();
+
+    std::cout << '\n';
+
+    graphic.remove(&graphic1);
+
+    graphic.print();
+
+    std::cout << "\n\n";
+
 }

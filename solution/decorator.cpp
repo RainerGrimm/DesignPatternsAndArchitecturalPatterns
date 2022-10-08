@@ -1,3 +1,5 @@
+// decorator.cpp (based on https://en.wikipedia.org/wiki/Decorator_pattern)
+
 #include <iostream>
 #include <string>
 

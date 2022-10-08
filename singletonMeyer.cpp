@@ -1,16 +1,18 @@
+// singletonMeyer.cpp
+
 #include <iostream>
 
 class MeyersSingleton{
 
   private:
 
-    MeyersSingleton()= default;
-    ~MeyersSingleton()= default;
+    MeyersSingleton() = default;
+    ~MeyersSingleton() = default;
 
   public:
 
-    MeyersSingleton(const MeyersSingleton&)= delete;
-    MeyersSingleton& operator=(const MeyersSingleton&)= delete;
+    MeyersSingleton(const MeyersSingleton&) = delete;
+    MeyersSingleton& operator = (const MeyersSingleton&) = delete;
 
     static MeyersSingleton& getInstance(){
       static MeyersSingleton instance;
@@ -19,7 +21,7 @@ class MeyersSingleton{
 };
 
 
-int main(){
+int main() {
 
   std::cout << '\n';
 

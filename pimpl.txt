@@ -1,0 +1,65 @@
+// class.h
+class MyClassImpl;
+class MyClass
+{
+public:
+    explicit MyClass();
+    ~MyClass(); 
+
+    // movable:
+    MyClass(MyClass && rhs) noexcept;                          
+    MyClass& operator=(MyClass && rhs) noexcept;               
+
+    // and copyable
+    MyClass(const MyClass& rhs);                               
+    MyClass& operator=(const MyClass& rhs);                    
+
+    void DoSth();
+    void DoConst() const;
+
+private:
+    const MyClassImpl* Pimpl() const { return m_pImpl.get(); } 
+    MyClassImpl* Pimpl() { return m_pImpl.get(); }              
+
+    std::unique_ptr<MyClassImpl> m_pImpl;                       
+};
+
+// class.cpp
+class MyClassImpl
+{
+public:
+    ~MyClassImpl() = default;
+
+    void DoSth() { }
+    void DoConst() const { }
+};
+
+MyClass::MyClass() : m_pImpl(new MyClassImpl()) 
+{
+
+}
+
+MyClass::~MyClass() = default;
+MyClass::MyClass(MyClass &&) noexcept = default;
+MyClass& MyClass::operator=(MyClass &&) noexcept = default;
+
+MyClass::MyClass(const MyClass& rhs)
+    : m_pImpl(new MyClassImpl(*rhs.m_pImpl))
+{}
+
+MyClass& MyClass::operator=(const MyClass& rhs) {
+    if (this != &rhs) 
+        m_pImpl.reset(new MyClassImpl(*rhs.m_pImpl));
+
+    return *this;
+}
+
+void MyClass::DoSth()
+{
+    Pimpl()->DoSth();
+}
+
+void MyClass::DoConst() const
+{
+    Pimpl()->DoConst();
+}

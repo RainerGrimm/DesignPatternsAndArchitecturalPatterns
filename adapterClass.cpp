@@ -1,9 +1,15 @@
-// adapterObject.cpp
+// adapterClass.cpp
 
 #include <iostream>
 
 typedef int Coordinate;
 typedef int Dimension;
+
+class Rectangle {
+public:
+    virtual void draw() = 0;
+    virtual ~Rectangle() = default;
+};
 
 class LegacyRectangle {
  public:
@@ -24,27 +30,29 @@ class LegacyRectangle {
     Coordinate y2_;
 };
 
-class RectangleAdapter {
+
+class RectangleAdapter : public Rectangle, private LegacyRectangle {
  public:
-    RectangleAdapter(Coordinate x, Coordinate y, Dimension w, Dimension h) : legacyRectangle{LegacyRectangle(x, y, x + w, y + h)} {
+    RectangleAdapter(Coordinate x, Coordinate y, Dimension w, Dimension h) : LegacyRectangle(x, y, x + w, y + h) {
         std::cout << "RectangleAdapter: create.  (" << x << "," << y 
                   << "), width = " << w << ", height = " << h << '\n';
     }
 
-    void draw() {
-        legacyRectangle.oldDraw();
+    void draw() override {
+        oldDraw();
         std::cout << "RectangleAdapter: draw." << '\n';
     }
- private:
-     LegacyRectangle legacyRectangle;
 };
 
 int main() {
 
     std::cout << '\n';
 
-    RectangleAdapter r(120, 200, 60, 40);
-    r.draw();
+    Rectangle* r = new RectangleAdapter(120, 200, 60, 40);
+    r->draw();
+
+    delete r;
 
     std::cout << '\n';
+    
 }
