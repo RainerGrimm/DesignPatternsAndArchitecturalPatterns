@@ -1,3 +1,5 @@
+// observer.cpp
+
 #include <iostream>
 #include <list>
 #include <string>
@@ -5,7 +7,7 @@
 class Observer {
  public:
   virtual ~Observer(){};
-  virtual void notify() = 0;
+  virtual void notify() const = 0;
 };
 
 class Subject {
@@ -16,7 +18,7 @@ class Subject {
   void unregisterObserver(Observer* observer) {
     observers.remove(observer);
   }
-  void notifyObservers() {
+  void notifyObservers() const {
     for (auto observer: observers) observer->notify();
   }
 
@@ -27,9 +29,9 @@ class Subject {
 class ConcreteObserverA : public Observer {
  public:
     ConcreteObserverA(Subject& subject) : subject_(subject) {
-        this->subject_.registerObserver(this);
+        subject_.registerObserver(this);
     }
-    void notify() override {
+    void notify() const override {
         std::cout << "ConcreteObserverA::notify\n";
     }
  private: 
@@ -39,9 +41,9 @@ class ConcreteObserverA : public Observer {
 class ConcreteObserverB : public Observer {
  public:
     ConcreteObserverB(Subject& subject) : subject_(subject) {
-        this->subject_.registerObserver(this);
+        subject_.registerObserver(this);
     }
-    void notify() override {
+    void notify() const override {
         std::cout << "ConcreteObserverB::notify\n";
     }
  private: 
@@ -51,18 +53,17 @@ class ConcreteObserverB : public Observer {
 
 int main() {
 
-    Subject* subject = new Subject;
-    Observer* observerA = new ConcreteObserverA(*subject);
-    Observer* observerB = new ConcreteObserverB(*subject);
+    std::cout << '\n';
 
-    subject->notifyObservers();
-    std::cout <<  "    subject->unregisterObserver(observerA)" << "\n";
-    subject->unregisterObserver(observerA);
-    subject->notifyObservers();
+    Subject subject;   
+    ConcreteObserverA observerA(subject);
+    ConcreteObserverB observerB(subject);
 
-    delete observerA;
-    delete observerB;
+    subject.notifyObservers();
+    std::cout <<  "    subject.unregisterObserver(observerA)\n";
+    subject.unregisterObserver(&observerA);
+    subject.notifyObservers();
 
-    delete subject;
+    std::cout << '\n';
 
 }
