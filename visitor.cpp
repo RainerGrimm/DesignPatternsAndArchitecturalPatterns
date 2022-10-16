@@ -1,87 +1,135 @@
-// from https://en.wikipedia.org/wiki/Visitor_pattern
+// visitor.cpp
 
 #include <iostream>
+#include <string>
 #include <vector>
 
-class AbstractDispatcher;  // Forward declare AbstractDispatcher
+class CarElementVisitor;
 
-class File {  // Parent class for the elements (ArchivedFile, SplitFile and
-              // ExtractedFile)
+class CarElement {
  public:
-  // This function accepts an object of any class derived from
-  // AbstractDispatcher and must be implemented in all derived classes
-  virtual void Accept(AbstractDispatcher& dispatcher) = 0;
+    virtual void accept(CarElementVisitor& visitor) const = 0;
 };
 
-// Forward declare specific elements (files) to be dispatched
-class ArchivedFile;
-class SplitFile;
-class ExtractedFile;
+class Body;
+class Car;
+class Engine;
+class Wheel;
 
-class AbstractDispatcher {  // Declares the interface for the dispatcher
+class CarElementVisitor {
  public:
-  // Declare overloads for each kind of a file to dispatch
-  virtual void Dispatch(ArchivedFile& file) = 0;
-  virtual void Dispatch(SplitFile& file) = 0;
-  virtual void Dispatch(ExtractedFile& file) = 0;
+    virtual void visit(Body body) const = 0;
+    virtual void visit(Car car) const = 0;
+    virtual void visit(Engine engine) const = 0;
+    virtual void visit(Wheel wheel) const = 0;
 };
 
-class ArchivedFile : public File {  // Specific element class #1
+class Wheel: public CarElement {
  public:
-  // Resolved at runtime, it calls the dispatcher's overloaded function,
-  // corresponding to ArchivedFile.
-  void Accept(AbstractDispatcher& dispatcher) override {
-    dispatcher.Dispatch(*this);
-  }
+    Wheel(const std::string& n): name(n) { }
+
+    void accept(CarElementVisitor& visitor) const override {
+        visitor.visit(*this);
+    }
+
+    std::string getName() const {
+        return name;
+    }
+ private:
+    std::string name;
 };
 
-class SplitFile : public File {  // Specific element class #2
+class Body: public CarElement {
  public:
-  // Resolved at runtime, it calls the dispatcher's overloaded function,
-  // corresponding to SplitFile.
-  void Accept(AbstractDispatcher& dispatcher) override {
-    dispatcher.Dispatch(*this);
-  }
+    void accept(CarElementVisitor& visitor) const override {
+        visitor.visit(*this);
+    }
 };
 
-class ExtractedFile : public File {  // Specific element class #3
+class Engine: public CarElement {
  public:
-  // Resolved at runtime, it calls the dispatcher's overloaded function,
-  // corresponding to ExtractedFile.
-  void Accept(AbstractDispatcher& dispatcher) override {
-    dispatcher.Dispatch(*this);
-  }
+    void accept(CarElementVisitor& visitor) const override {
+        visitor.visit(*this);
+    }
 };
 
-class Dispatcher : public AbstractDispatcher {  // Implements dispatching of all
-                                                // kind of elements (files)
+class Car: public CarElement {
  public:
-  void Dispatch(ArchivedFile&) override {
-    std::cout << "dispatching ArchivedFile" << '\n';
-  }
+    Car(std::initializer_list<CarElement*> carElements ): elements{carElements} {}
+   
+    void accept(CarElementVisitor& visitor) const override {
+        for (auto elem : elements) {
+            elem->accept(visitor);
+        }
+        visitor.visit(*this);
+    }
+ private:
+    std::vector<CarElement*> elements;
+};
 
-  void Dispatch(SplitFile&) override {
-    std::cout << "dispatching SplitFile" << '\n';
-  }
+class CarElementDoVisitor: public CarElementVisitor {
+   
+    void visit(Body body) const override {
+        std::cout << "Moving my body" << '\n';
+    }
 
-  void Dispatch(ExtractedFile&) override {
-    std::cout << "dispatching ExtractedFile" << '\n';
-  }
+     void visit(Car car) const override {
+        std::cout << "Starting my car" << '\n';
+    }
+
+    void visit(Wheel wheel) const override {
+        std::cout << "Kicking my " << wheel.getName() << " wheel" << '\n';
+    }
+
+    void visit(Engine engine) const override {
+        std::cout << "Starting my engine" << '\n';
+    }
+};
+
+class CarElementPrintVisitor: public CarElementVisitor {
+   
+    void visit(Body body) const override {
+        std::cout << "Visiting body" << '\n';
+    }
+
+     void visit(Car car) const override {
+        std::cout << "Visiting car" << '\n';
+    }
+
+    void visit(Wheel wheel) const override {
+        std::cout << "Visiting " << wheel.getName() << " wheel" << '\n';
+    }
+
+    void visit(Engine engine) const override {
+        std::cout << "Visiting engine" << '\n';
+    }
 };
 
 int main() {
-  ArchivedFile archived_file;
-  SplitFile split_file;
-  ExtractedFile extracted_file;
 
-  std::vector<File*> files = {
-      &archived_file,
-      &split_file,
-      &extracted_file,
-  };
+    std::cout << '\n';
 
-  Dispatcher dispatcher;
-  for (File* file : files) {
-    file->Accept(dispatcher);
-  }
+    Wheel wheelFrontLeft("front left");
+    Wheel wheelFrontRight("front right");
+    Wheel wheelBackLeft("back left");
+    Wheel wheelBackRight("back right");
+    Body body;
+    Engine engine;
+    Car car {&wheelFrontLeft, &wheelFrontRight, &wheelBackLeft, &wheelBackRight,
+             &body, &engine };
+
+    CarElementPrintVisitor carElementPrintVisitor; 
+
+    engine.accept(carElementPrintVisitor);                 
+    car.accept(carElementPrintVisitor);                    
+
+    std::cout << '\n';
+
+    CarElementDoVisitor carElementDoVisitor;
+
+    engine.accept(carElementDoVisitor);                   
+    car.accept(carElementDoVisitor);                     
+
+    std::cout << '\n';
+
 }
