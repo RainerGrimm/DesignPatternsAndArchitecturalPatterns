@@ -1,5 +1,3 @@
-// singletonMeyer.cpp
-
 #include <iostream>
 
 class MeyersSingleton{

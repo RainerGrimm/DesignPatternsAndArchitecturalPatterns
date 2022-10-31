@@ -2,52 +2,52 @@
 
 class Sort{
 public:
-  virtual void processData() final {
+ virtual void processData() final {
     readData();
     sortData();
     writeData();
   }
 private:
-  virtual void readData(){}
-  virtual void sortData()= 0;
-  virtual void writeData(){}
+    virtual void readData(){}
+    virtual void sortData()= 0;
+    virtual void writeData(){}
 };
 
 
 class QuickSort: public Sort{
-private:
-  void readData() override {
-    std::cout << "readData" << '\n';
-  }
-  void sortData() override {
-    std::cout <<  "sortData" << '\n';
-  }
-  void writeData() override {
-    std::cout << "writeData" << '\n';
-  }
+    void readData() override {
+        std::cout << "readData" << '\n';
+    }
+    void sortData() override {
+        std::cout <<  "sortData" << '\n';
+    }
+    void writeData() override {
+        std::cout << "writeData" << '\n';
+    }
 };
 
 class BubbleSort: public Sort{
-private:
-
-  void sortData() override {
-    std::cout <<  "sortData" << '\n';
-  }
-
+    void sortData() override {
+        std::cout <<  "sortData" << '\n';
+    }
 };
 
 
 int main(){
 
-  std::cout << '\n';
+    std::cout << '\n';
 
-  Sort* sort = new QuickSort;
-  sort->processData();
+    QuickSort quick;
+    Sort* sort = &quick;
+    sort->processData();
 
-  std::cout << "\n\n";
+    std::cout << "\n\n";
 
-  sort = new BubbleSort;
-  sort->processData();
+    BubbleSort bubble;
+    sort = &bubble;
+    sort->processData();
+
+    std::cout << '\n';
   
 }
 

@@ -1,8 +1,6 @@
-// bridget.cpp
-
 #include <iostream>
 
-class Implementor {                           // (1)
+class Implementor {                           
 public:
     virtual void implementation() const = 0;
 
@@ -27,7 +25,7 @@ public:
     }
 };
 
-class Abstraction {                           // (2)      
+class Abstraction {                              
 public:
     virtual void function() const = 0;
     virtual ~Abstraction() = default;
@@ -54,8 +52,8 @@ int main() {
     ImplementorA implementorA;
     ImplementorB implementorB;
  
-    RefinedAbstraction refinedAbstraction1(implementorA);  // (3)
-    RefinedAbstraction refinedAbstraction2(implementorB);  // (4)
+    RefinedAbstraction refinedAbstraction1(implementorA);  
+    RefinedAbstraction refinedAbstraction2(implementorB); 
 
     Abstraction *abstraction1 = &refinedAbstraction1;
     Abstraction *abstraction2 = &refinedAbstraction2;

@@ -1,3 +1,5 @@
+// adl.cpp
+
 namespace MyNamespace {
     struct MyStruct {};
     void function(MyStruct) {}

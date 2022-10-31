@@ -1,5 +1,3 @@
-// observer.cpp
-
 #include <iostream>
 #include <list>
 #include <string>
