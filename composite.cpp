@@ -1,4 +1,7 @@
+// composite.cpp
+
 #include <iostream>
+#include <string>
 #include <vector>
 
 class Graphic {
@@ -40,14 +43,23 @@ int main(){
 
     std::cout << '\n';
 
-    Ellipse ellipse1("ellipse1");
-    Ellipse ellipse2("ellipse2");
-    Ellipse ellipse3("ellipse3");
-    Ellipse ellipse4("ellipse4");
+    const std::string el1 = "ellipse1";
+    const std::string el2 = "ellipse2";
+    const std::string el3 = "ellipse3";
+    const std::string el4 = "ellipse4";
 
-    GraphicComposite graphic1("graphic1");
-    GraphicComposite graphic2("graphic2");
-    GraphicComposite graphic("graphic");
+    Ellipse ellipse1(el1);
+    Ellipse ellipse2(el2);
+    Ellipse ellipse3(el3);
+    Ellipse ellipse4(el4);
+
+    const std::string graph1 = "graphic1";
+    const std::string graph2 = "graphic2";
+    const std::string graph3 = "graphic3";
+
+    GraphicComposite graphic1(graph1);
+    GraphicComposite graphic2(graph2);
+    GraphicComposite graphic(graph3);
 
     graphic1.add(&ellipse1);
     graphic1.add(&ellipse2);
