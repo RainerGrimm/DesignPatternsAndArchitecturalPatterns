@@ -1,13 +1,14 @@
 #include <iostream>
 
 class Sort{
-public:
- virtual void processData() final {
-    readData();
-    sortData();
-    writeData();
-  }
-private:
+ public:
+    virtual void processData() final {
+        readData();
+        sortData();
+        writeData();
+    }
+    virtual ~Sort() = default;
+ private:
     virtual void readData(){}
     virtual void sortData()= 0;
     virtual void writeData(){}

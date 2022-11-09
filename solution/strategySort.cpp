@@ -4,6 +4,8 @@ struct AbstractSort {
     virtual void readData() {}
     virtual void sortData() = 0;
     virtual void writeData() {}
+
+    virtual ~AbstractSort() = default;
 };
 
 class QuickSort: public AbstractSort{
@@ -47,12 +49,14 @@ int main() {
     AbstractSort* sort = new QuickSort;
     Client client(sort);
     client.processData();
+    delete sort;
 
     std::cout << "\n";
 
     AbstractSort* sort2 = new BubbleSort;
     Client client2(sort2);
     client2.processData();
+    delete sort2;
 
 }
 
