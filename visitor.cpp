@@ -9,6 +9,7 @@ class CarElementVisitor;
 class CarElement {
  public:
     virtual void accept(CarElementVisitor& visitor) const = 0;
+    virtual ~CarElement() = default;
 };
 
 class Body;
@@ -22,6 +23,7 @@ class CarElementVisitor {
     virtual void visit(Car car) const = 0;
     virtual void visit(Engine engine) const = 0;
     virtual void visit(Wheel wheel) const = 0;
+    virtual ~CarElementVisitor() = default;
 };
 
 class Wheel: public CarElement {
