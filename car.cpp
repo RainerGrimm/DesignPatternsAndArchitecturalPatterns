@@ -5,13 +5,14 @@
 
 struct CarPart{
     virtual int getPrice() const = 0;
+    virtual ~CarPart() = default;
 };
 
 struct Wheel: CarPart{
     int getPrice() const override = 0;
 };
 
-struct Motor: CarPart{
+struct Engine: CarPart{
     int getPrice() const override = 0;
 };
 
@@ -27,7 +28,7 @@ struct TrabiWheel: Wheel{
     }
 };
 
-struct TrabiMotor: Motor{
+struct TrabiEngine: Engine{
     int getPrice() const override{
         return 350;
     }
@@ -47,7 +48,7 @@ struct VWWheel: Wheel{
     }
 };
 
-struct VWMotor: Motor{
+struct VWEngine: Engine{
     int getPrice() const override{
         return 500;
     }
@@ -67,7 +68,7 @@ struct BMWWheel: Wheel{
     }
 };
 
-struct BMWMotor: Motor{
+struct BMWEngine: Engine{
     int getPrice() const override{
         return 850;
     }
@@ -82,16 +83,16 @@ struct BMWBody: Body{
 // Generic car
     
 struct Car{
-    Car(std::unique_ptr<Wheel> wh, std::unique_ptr<Motor> mo, std::unique_ptr<Body> bo): 
-         myWheel(std::move(wh)), myMotor(std::move(mo)), myBody(std::move(bo)){}
+    Car(std::unique_ptr<Wheel> wh, std::unique_ptr<Engine> mo, std::unique_ptr<Body> bo): 
+         myWheel(std::move(wh)), myEngine(std::move(mo)), myBody(std::move(bo)){}
          
     int getPrice(){
-        return 4 * myWheel->getPrice() + myMotor->getPrice() + myBody->getPrice();
+        return 4 * myWheel->getPrice() + myEngine->getPrice() + myBody->getPrice();
     }
 
 private:
     std::unique_ptr<Wheel> myWheel;
-    std::unique_ptr<Motor> myMotor;
+    std::unique_ptr<Engine> myEngine;
     std::unique_ptr<Body> myBody;
 
 };
@@ -100,16 +101,16 @@ int main(){
     
     std::cout << '\n';
     
-    Car trabi(std::make_unique<TrabiWheel>(), std::make_unique<TrabiMotor>(), std::make_unique<TrabiBody>());
+    Car trabi(std::make_unique<TrabiWheel>(), std::make_unique<TrabiEngine>(), std::make_unique<TrabiBody>());
     std::cout << "Offer Trabi: " << trabi.getPrice() << '\n';
     
-    Car vw(std::make_unique<VWWheel>(), std::make_unique<VWMotor>(), std::make_unique<VWBody>());
+    Car vw(std::make_unique<VWWheel>(), std::make_unique<VWEngine>(), std::make_unique<VWBody>());
     std::cout << "Offer VW: " << vw.getPrice() << '\n';
     
-    Car bmw(std::make_unique<BMWWheel>(), std::make_unique<BMWMotor>(), std::make_unique<BMWBody>());
+    Car bmw(std::make_unique<BMWWheel>(), std::make_unique<BMWEngine>(), std::make_unique<BMWBody>());
     std::cout << "Offer BMW: " << bmw.getPrice() << '\n';
     
-    Car fancy(std::make_unique<TrabiWheel>(), std::make_unique<VWMotor>(), std::make_unique<BMWBody>());
+    Car fancy(std::make_unique<TrabiWheel>(), std::make_unique<VWEngine>(), std::make_unique<BMWBody>());
     std::cout << "Offer Fancy: " << fancy.getPrice() << '\n';
     
     std::cout << '\n';
