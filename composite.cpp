@@ -1,5 +1,3 @@
-// composite.cpp
-
 #include <iostream>
 #include <string>
 #include <vector>
