@@ -1,13 +1,9 @@
-// lambdaAndAuto.cpp
-
 #include <functional>
 #include <iostream>
 
 double divMe(double a, double b){
   return double(a/b);
 }
-
-using namespace std::placeholders;
 
 int main(){
 

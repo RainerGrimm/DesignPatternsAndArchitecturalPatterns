@@ -7,6 +7,7 @@ public:
     sortData();
     writeData();
   }
+  virtual ~Sort() = default;
 private:
   virtual void readData(){}
   virtual void sortData()= 0;
