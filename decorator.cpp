@@ -1,15 +1,14 @@
+// decorator.cpp (based on https://en.wikipedia.org/wiki/Decorator_pattern)
+
 #include <iostream>
 #include <string>
 
 struct Shape {
   virtual ~Shape() = default;
-
   virtual std::string GetName() const = 0;
 };
 
 struct Circle : Shape {
-  void Resize(float factor) { radius *= factor; }
-
   std::string GetName() const override {
     return std::string("A circle of radius ") + std::to_string(radius);
   }
@@ -34,6 +33,7 @@ int main() {
   std::cout << '\n';
 
   Circle circle;
+  std::cout << circle.GetName() << '\n';
   ColoredShape colored_shape("red", &circle);
   std::cout << colored_shape.GetName() << '\n';
 

@@ -38,6 +38,9 @@ class Client {
         sortStrategy->sortData();
         sortStrategy->writeData();
     }
+    void setStrategy(AbstractSort* sort) {
+        sortStrategy = sort;
+    }
  private:
      AbstractSort* sortStrategy;
 };
@@ -54,9 +57,11 @@ int main() {
     std::cout << "\n";
 
     AbstractSort* sort2 = new BubbleSort;
-    Client client2(sort2);
-    client2.processData();
+    client.setStrategy(sort2);
+    client.processData();
     delete sort2;
+
+    std::cout << '\n';
 
 }
 
