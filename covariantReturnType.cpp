@@ -5,6 +5,7 @@ class Interface {
  public:
     virtual Interface* clone() const = 0;
     virtual std::string getName() const = 0;
+    virtual ~Interface() = default;
 };
 
 class Implementation1 : public Interface {
@@ -27,7 +28,7 @@ class Implementation2 : public Interface {
     }
 };
 
-void cloneMe(Interface* interface) {
+void cloneMe(const Interface* interface) {
     auto* inter = interface->clone();
     std::cout << inter->getName() << '\n';
 }

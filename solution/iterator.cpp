@@ -30,8 +30,17 @@ public:
 };
 
 int main() {
+
+    std::cout << '\n';
     
-    Generator<int> r{-10, 10};
-    for (auto v : r) std::cout << v << " ";
+    Generator<int> genInt{-10, 10};
+    for (auto v : genInt) std::cout << v << " ";
+
+    std::cout << '\n';
+
+    Generator<char> genChar{'a', 'k'};
+    for (auto v : genChar) std::cout << v << " ";
+
+    std::cout << '\n';
 
 }
