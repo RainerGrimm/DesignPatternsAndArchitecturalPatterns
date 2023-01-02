@@ -1,46 +1,26 @@
 #include <iostream>
 #include <string>
-#include <utility>
-
-template<typename Derived>
-class Relational{};
 
 // Relational Operators
 
 template <typename Derived>
-bool operator > (Relational<Derived> const& op1, Relational<Derived> const& op2){
-    Derived const& d1 = static_cast<Derived const&>(op1);     
-    Derived const& d2 = static_cast<Derived const&>(op2); 
-    return d2 < d1;
-}
-
-template <typename Derived>
-bool operator == (Relational<Derived> const& op1, Relational<Derived> const& op2){
-    Derived const& d1 = static_cast<Derived const&>(op1);     
-    Derived const& d2 = static_cast<Derived const&>(op2); 
-    return !(d1 < d2) && !(d2 < d1);
-}
-
-template <typename Derived>
-bool operator != (Relational<Derived> const& op1, Relational<Derived> const& op2){
-    Derived const& d1 = static_cast<Derived const&>(op1);     
-    Derived const& d2 = static_cast<Derived const&>(op2); 
-    return (d1 < d2) || (d2 < d1);
-}
-
-template <typename Derived>
-bool operator <= (Relational<Derived> const& op1, Relational<Derived> const& op2){
-    Derived const& d1 = static_cast<Derived const&>(op1);     
-    Derived const& d2 = static_cast<Derived const&>(op2); 
-    return (d1 < d2) || (d1 == d2);
-}
-
-template <typename Derived>
-bool operator >= (Relational<Derived> const& op1, Relational<Derived> const& op2){
-    Derived const& d1 = static_cast<Derived const&>(op1);     
-    Derived const& d2 = static_cast<Derived const&>(op2); 
-    return (d1 > d2) || (d1 == d2);
-}
+struct Relational {
+    friend bool operator > (Derived const& op1, Derived const& op2){
+       return op2 < op1;
+    }
+    friend bool operator == (Derived const& op1, Derived const& op2){
+        return !(op1 < op2) && !(op2 < op1);
+    }
+    friend bool operator != (Derived const& op1, Derived const& op2){
+        return (op1 < op2) || (op2 < op1);
+    }
+    friend bool operator <= (Derived const& op1, Derived const& op2){ 
+        return (op1 < op2) || (op1 == op2);
+    }
+    friend bool operator >= (Derived const& op1, Derived const& op2){
+        return (op1 > op2) || (op1 == op2);
+    }
+};
 
 // Apple
 
@@ -67,6 +47,7 @@ private:
 };
 
 // class Person
+
 class Person: public Relational<Person>{
 public:
     Person(std::string fst, std::string sec): first(fst), second(sec){}
@@ -77,7 +58,6 @@ private:
     std::string first;
     std::string second;
 };
-        
 
 int main(){
   
@@ -104,7 +84,7 @@ int main(){
   std::cout << "man1 >= man2: " << (man1 >= man2) << '\n';
   
   std::cout << '\n';
-  
+
   Person rainer{"Rainer", "Grimm"};
   Person marius{"Marius", "Grimm"};
   std::cout << "Rainer Grimm < Marius Grimm: " << (rainer < marius) << '\n'; 
