@@ -1,32 +1,30 @@
 #include <iostream>
 #include <type_traits>
 
-using namespace std;
-
 template <typename T>
 void getPrimaryTypeCategory(){
 
-  cout << boolalpha << endl;
+  std::cout << std::boolalpha << '\n';
 
-  cout << "is_void<T>::value: " << is_void<T>::value << endl;
-  cout << "is_integral<T>::value: " << is_integral<T>::value << endl;
-  cout << "is_floating_point<T>::value: " << is_floating_point<T>::value << endl;
-  cout << "is_array<T>::value: " << is_array<T>::value << endl;
-  cout << "is_pointer<T>::value: " << is_pointer<T>::value << endl;
-  cout << "is_null_pointer<T>::value: " << is_null_pointer<T>::value << endl;
-  cout << "is_member_object_pointer<T>::value: " << is_member_object_pointer<T>::value << endl;
-  cout << "is_member_function_pointer<T>::value: " << is_member_function_pointer<T>::value << endl;
-  cout << "is_enum<T>::value: " << is_enum<T>::value << endl;
-  cout << "is_union<T>::value: " << is_union<T>::value << endl;
-  cout << "is_class<T>::value: " << is_class<T>::value << endl;
-  cout << "is_function<T>::value: " << is_function<T>::value << endl;
-  cout << "is_lvalue_reference<T>::value: " << is_lvalue_reference<T>::value << endl;
-  cout << "is_rvalue_reference<T>::value: " << is_rvalue_reference<T>::value << endl;
+  std::cout << "std::is_void<T>::value: " << std::is_void<T>::value << '\n';
+  std::cout << "std::is_integral<T>::value: " << std::is_integral<T>::value << '\n';
+  std::cout << "std::is_floating_point<T>::value: " << std::is_floating_point<T>::value << '\n';
+  std::cout << "std::is_array<T>::value: " << std::is_array<T>::value << '\n';
+  std::cout << "std::is_pointer<T>::value: " << std::is_pointer<T>::value << '\n';
+  std::cout << "std::is_null_pointer<T>::value: " << std::is_null_pointer<T>::value << '\n';
+  std::cout << "std::is_member_object_pointer<T>::value: " << std::is_member_object_pointer<T>::value << '\n';
+  std::cout << "std::is_member_function_pointer<T>::value: " << std::is_member_function_pointer<T>::value << '\n';
+  std::cout << "std::is_enum<T>::value: " << std::is_enum<T>::value << '\n';
+  std::cout << "std::is_union<T>::value: " << std::is_union<T>::value << '\n';
+  std::cout << "std::is_class<T>::value: " << std::is_class<T>::value << '\n';
+  std::cout << "std::is_function<T>::value: " << std::is_function<T>::value << '\n';
+  std::cout << "std::is_lvalue_reference<T>::value: " << std::is_lvalue_reference<T>::value << '\n';
+  std::cout << "std::is_rvalue_reference<T>::value: " << std::is_rvalue_reference<T>::value << '\n';
 
-  cout << endl;
+  std::cout << '\n';
 
 }
 
 int main(){
-    getPrimaryTypeCategory<void>();
+    getPrimaryTypeCategory<int&>();
 }

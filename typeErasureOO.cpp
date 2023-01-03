@@ -4,6 +4,7 @@
 
 struct BaseClass{
 	virtual std::string getName() const = 0;
+	virtual ~BaseClass() = default;
 };
 
 struct Bar: BaseClass{
