@@ -1,5 +1,3 @@
-// reactor.cpp
-
 #include <fstream>
 #include <string>
 
