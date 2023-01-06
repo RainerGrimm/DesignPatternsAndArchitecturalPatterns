@@ -1,5 +1,3 @@
-// threadLocalSummation.cpp
-
 #include <atomic>
 #include <chrono>
 #include <iostream>
@@ -8,7 +6,7 @@
 #include <utility>
 #include <vector>
 
-constexpr long long size = 100000000;   
+constexpr long long size = 100'000'000;   
 
 constexpr long long fir =  25000000;
 constexpr long long sec =  50000000;
@@ -22,8 +20,9 @@ void sumUp(std::atomic<unsigned long long>& sum, const std::vector<int>& val,
     for (auto i = beg; i < end; ++i){
         tmpSum += val[i];
     }
-    sum.fetch_add(tmpSum, std::memory_order_relaxed);
+    sum.fetch_add(tmpSum);
 }
+
 
 int main(){
 

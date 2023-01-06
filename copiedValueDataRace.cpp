@@ -1,5 +1,3 @@
-// copiedValueDataRace.cpp
-
 #include <functional>
 #include <iostream>
 #include <string>

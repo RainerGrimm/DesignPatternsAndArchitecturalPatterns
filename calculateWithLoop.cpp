@@ -1,5 +1,3 @@
-// calculateWithLoop.cpp
-
 #include <chrono>
 #include <iostream>
 #include <random>
