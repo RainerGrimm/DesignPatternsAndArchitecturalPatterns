@@ -1,5 +1,3 @@
-// threadSafeInterface.cpp
-
 #include <iostream>
 #include <mutex>
 #include <thread>
@@ -18,6 +16,8 @@ public:
         implementation3();
         implementation1();
     }
+
+    inline static int mem{};
    
 private: 
     void implementation1() const {
@@ -45,12 +45,14 @@ int main(){
     std::thread t1([]{ 
         const Critical crit;
         crit.interface1();
+        crit.mem = 10;
     });
     
     std::thread t2([]{
         Critical crit;
         crit.interface2();
         crit.interface1();
+        crit.mem = 20;
     });
     
     Critical crit;

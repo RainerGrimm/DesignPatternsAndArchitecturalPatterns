@@ -1,5 +1,3 @@
-// bossWorker.cpp
-
 #include <future>
 #include <chrono>
 #include <iostream>
