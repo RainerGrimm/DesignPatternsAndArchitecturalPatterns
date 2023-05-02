@@ -28,7 +28,7 @@ public:
     }
     void unlock() const {
         std::cout << "NoLock::unlock: " << '\n';
-         nullObjectMutex.lock();
+         nullObjectMutex.unlock();
     }
     mutable NullObjectMutex nullObjectMutex;
 };
