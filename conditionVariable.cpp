@@ -40,7 +40,6 @@ int main(){
    for (auto v: mySharedWork){
       std::cout << v << " ";
   }
-      
   
   std::cout << "\n\n";
   

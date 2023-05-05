@@ -1,5 +1,3 @@
-// StrategizedLockingCompileTime.cpp
-
 #include <iostream>
 #include <mutex>
 #include <shared_mutex>

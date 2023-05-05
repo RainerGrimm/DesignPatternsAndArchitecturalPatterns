@@ -1,5 +1,3 @@
-// threadSafeInterfaceVirtual.cpp
-
 #include <iostream>
 #include <mutex>
 #include <thread>
@@ -11,6 +9,7 @@ public:
         std::lock_guard<std::mutex> lockGuard(mut);
         std::cout << "Base with lock" << '\n';
     }
+    virtual ~Base() = default;
 private:
     std::mutex mut;
 };
@@ -29,6 +28,7 @@ int main(){
 
     Base* base1 = new Derived;
     base1->interface();
+    delete base1;
 
     Derived der;
     Base& base2 = der;

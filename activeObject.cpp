@@ -1,5 +1,3 @@
-// activeObject.cpp
-
 #include <algorithm>
 #include <deque>
 #include <functional>
@@ -92,7 +90,7 @@ private:
 vector<int> getRandNumbers(int number){
     random_device seed;
     mt19937 engine(seed());
-    uniform_int_distribution<> dist(1000000, 1000000000);
+    uniform_int_distribution<> dist(1'000'000, 1'000'000'000);
     vector<int> numbers;
     for (long long i = 0 ; i < number; ++i) numbers.push_back(dist(engine)); 
     return numbers;

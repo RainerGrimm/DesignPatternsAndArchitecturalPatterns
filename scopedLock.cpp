@@ -1,22 +1,20 @@
-// scopedLock.cpp
-
 #include <iostream>
 #include <mutex>
 #include <new>
 #include <string>
 #include <utility>
 
-class ScopedLock{
+class ScopedLock{  /// std::unique_lock
   private:
     std::mutex& mut;
   public:
     explicit ScopedLock(std::mutex& m): mut(m){
-		mut.lock();
-		std::cout <<  "Lock the mutex: " << &mut <<   '\n';
+		  mut.lock();
+		  std::cout <<  "Lock the mutex: " << &mut <<   '\n';
     }
     ~ScopedLock(){
-		std::cout << "Release the mutex: " << &mut << '\n'; 
-		mut.unlock();
+		  std::cout << "Release the mutex: " << &mut << '\n'; 
+		  mut.unlock();
     }
 };
 

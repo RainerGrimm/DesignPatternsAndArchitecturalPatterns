@@ -1,5 +1,3 @@
-// waitFor.cpp
-
 #include <iostream>
 #include <future>
 #include <thread>
