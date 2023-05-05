@@ -6,12 +6,12 @@ class Interface {
  public:
     virtual std::unique_ptr<Interface> clone() const = 0;
     virtual std::string getName() const = 0;
+    virtual ~Interface() = default;
 };
 
 class Implementation1 : public Interface {
  public:
     std::unique_ptr<Interface> clone() const override {
-        // return std::make_unique<Interface>(*this); 
         return std::unique_ptr<Interface>( new Implementation1(*this));
     }
     virtual std::string getName() const override {
