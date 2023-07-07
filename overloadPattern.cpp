@@ -1,5 +1,3 @@
-// deducingThisVisitor.cpp
-
 #include <iostream>
 
 template<typename... Ts> 
