@@ -2,9 +2,8 @@
 #include <mutex>
 #include <new>
 #include <string>
-#include <utility>
 
-class ScopedLock{  /// std::unique_lock
+class ScopedLock{  
   private:
     std::mutex& mut;
   public:
